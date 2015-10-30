@@ -8,36 +8,34 @@ module.exports = yeoman.generators.Base.extend({
     var done = this.async();
 
     // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the priceless ' + chalk.red('AngularBoot') + ' generator!'
-    ));
+    this.log('Welcome to the cool ' + chalk.red('angular-boot') + ' generator! ' + chalk.yellow('Let\'s ask you few questions...'));
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+    var prompts = [
+      {type: 'input', name: 'artifact', message: 'Artifact:', default: 'angularboot'},
+      {type: 'input', name: 'package', message: 'Group name:', default: 'com.somecompany'},
+      {type: 'input', name: 'author', message: 'Project author:', default: 'John Doe'},
+      {type: 'input', name: 'email', message: 'E-mail', default: 'john.doe@localhost'},
+    ];
 
     this.prompt(prompts, function (props) {
       this.props = props;
-      // To access props later use this.props.someOption;
-
       done();
     }.bind(this));
   },
 
   writing: {
     app: function () {
+      var packagePath = this.props.package.replace(/\./g, '/');
+      this.template('_pom.xml', 'pom.xml');
+      this.directory('src/main/java/package/', 'src/main/java/' + packagePath + '/' + this.props.artifact + '/')
       this.fs.copy(
-        this.templatePath('_package.json'),
-        this.destinationPath('package.json')
+        this.templatePath('src/main/resources/application.properties'),
+        this.destinationPath('src/main/resources/application.properties')
       );
-      this.fs.copy(
-        this.templatePath('_bower.json'),
-        this.destinationPath('bower.json')
-      );
-    },
+      this.template('_package.json', 'package.json');
+      this.template('_bower.json', 'bower.json');
+    }
+    ,
 
     projectfiles: function () {
       this.fs.copy(
@@ -54,4 +52,5 @@ module.exports = yeoman.generators.Base.extend({
   install: function () {
     this.installDependencies();
   }
-});
+})
+;
