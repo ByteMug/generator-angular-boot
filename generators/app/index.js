@@ -27,13 +27,17 @@ module.exports = yeoman.generators.Base.extend({
     app: function () {
       var packagePath = this.props.package.replace(/\./g, '/');
       this.template('_pom.xml', 'pom.xml');
-      this.directory('src/main/java/package/', 'src/main/java/' + packagePath + '/' + this.props.artifact + '/')
-      this.fs.copy(
-        this.templatePath('src/main/resources/application.properties'),
-        this.destinationPath('src/main/resources/application.properties')
-      );
+      this.directory('src/main/java/package/', 'src/main/java/' + packagePath + '/' + this.props.artifact + '/');
+      this.copy('src/main/resources/application.properties', 'src/main/resources/application.properties');
+
+      this.directory('gulp', 'gulp');
+      this.copy('karma.conf.js', 'karma.conf.js');
+      this.copy('gulpfile.js', 'gulpfile.js');
+      this.copy('protractor.conf.js', 'protractor.conf.js');
+
       this.template('_package.json', 'package.json');
       this.template('_bower.json', 'bower.json');
+
     }
     ,
 
