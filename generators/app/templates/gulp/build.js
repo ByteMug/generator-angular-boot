@@ -19,8 +19,8 @@ gulp.task('partials', function () {
       quotes: true
     }))
     .pipe($.angularTemplatecache('templateCacheHtml.js', {
-      module: 'testujemy',
-      root: 'app'
+      module: '<%= props.artifact %>',
+      root: 'frontend'
     }))
     .pipe(gulp.dest(conf.paths.tmp + '/partials/'));
 });

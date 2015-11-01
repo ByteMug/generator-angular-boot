@@ -3,10 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId><%= props.package %>
-  </groupId>
-  <artifactId><%= props.artifact %>
-  </artifactId>
+  <groupId><%= props.package %></groupId>
+  <artifactId><%= props.artifact %></artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
@@ -61,6 +59,22 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+       <plugin>
+         <groupId>com.github.eirslett</groupId>
+          <artifactId>frontend-maven-plugin</artifactId>
+          <version>0.0.22</version>
+          <configuration>
+             <workingDirectory>src/frontend</workingDirectory>
+           </configuration>
+           <executions>
+              <execution>
+                <id>gulp build</id>
+                  <goals>
+                    <goal>gulp</goal>
+                  </goals>
+              </execution>
+            </executions>
+        </plugin>
     </plugins>
   </build>
 

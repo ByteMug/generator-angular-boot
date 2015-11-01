@@ -30,16 +30,17 @@ module.exports = yeoman.generators.Base.extend({
       this.directory('src/main/java/package/', 'src/main/java/' + packagePath + '/' + this.props.artifact + '/');
       this.copy('src/main/resources/application.properties', 'src/main/resources/application.properties');
 
+      this.directory('src/frontend/', 'src/frontend/');
+      this.copy('src/index.html', 'src/index.html');
+
       this.directory('gulp', 'gulp');
-      this.copy('karma.conf.js', 'karma.conf.js');
-      this.copy('gulpfile.js', 'gulpfile.js');
-      this.copy('protractor.conf.js', 'protractor.conf.js');
+      this.copy('_karma.conf.js', 'karma.conf.js');
+      this.copy('_gulpfile.js', 'gulpfile.js');
+      this.copy('_protractor.conf.js', 'protractor.conf.js');
 
       this.template('_package.json', 'package.json');
       this.template('_bower.json', 'bower.json');
-
-    }
-    ,
+    },
 
     projectfiles: function () {
       this.fs.copy(
